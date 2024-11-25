@@ -1,0 +1,55 @@
+# Query to find specific drugs and show their drug class labels (e.g., hallucinogen, stimulant, etc.)
+SELECT ?drug ?drugLabel ?class ?classLabel
+WHERE {
+  VALUES ?drug {
+    wd:Q3014232  # 2ct
+    wd:Q2728188  # 2c
+    wd:Q4352011  # 5-meo-xxt
+    wd:Q156      # alcohol
+    wd:Q2445303  # amphetamines
+    wd:Q421163   # amt
+    wd:Q83871    # benzodiazepine
+    wd:Q60235    # caffeine
+    wd:Q2845     # cannabis
+    wd:Q41576    # cocaine
+    wd:Q191924   # dextromethorphan
+    wd:Q407217   # dmt
+    wd:Q413486   # diphenhydramine
+    wd:Q62504959 # dox
+    wd:Q207920   # ghb/gbl
+    wd:Q243547   # ketamine
+    wd:Q152763   # lithium
+    wd:Q23118    # lsd
+    wd:Q410954   # maois
+    wd:Q69488    # mdma
+    wd:Q193140   # mescaline
+    wd:Q262613   # mephedrone
+    wd:Q208118   # mushrooms
+    wd:Q903303   # mxe
+    wd:Q905750   # nitrous oxide
+    wd:Q427523   # opioids
+    wd:Q407324   # pcp
+    wd:Q334477   # ssris
+    wd:Q407592   # tramadol
+  }
+
+  # Filter by subclass (the major drug classes like hallucinogens, depressants, stimulants)
+  ?drug wdt:P279 ?class.
+  # Filter for specific drug classes (e.g., hallucinogen, depressant, stimulant)
+  VALUES ?class {
+    wd:Q194270   # Hallucinogen
+    wd:Q1976211  # Depressant
+    wd:Q211036   # Stimulant
+    wd:Q427523   # Opioid
+    wd:Q900394   # Dissociative
+    wd:Q76560    # Anti-depressant
+    wd:Q900521   # Inhalant
+    wd:Q2622367  # Mood stabilizer
+    wd:Q324089   # Antihistamine
+    wd:Q422936   # Cannabinoid
+    
+  }
+
+  # Fetch labels for drugs and their respective classes
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}
